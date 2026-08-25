@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<grammar xml:lang="en-US" version="1.0" root="ROOT">
+
+  <!--
+   SH_FILE_DOC
+  
+   Copyright 2001 SpeechWorks International, Inc.
+   All Rights Reserved.
+  
+   $RCSfile: boolean.xml,v $
+  
+   Boolean grammar
+  
+   Author:      Jeff Marcus
+  
+   Used by:
+  
+   History:
+  
+   $Id: boolean.xml,v 1.1.1.1.2.1 2003/04/28 19:37:12 fanty Exp $ $Name: OSR2-0-9-RC-preCC $
+  -->
+
+<meta name="swirec_max_speech_duration" content="7000" />
+<meta name="incompletetimeout" content="500"/>
+ <rule id="ROOT" scope="public">
+    <one-of>
+      <item tag="SWI_meaning=true">yes</item>
+      <item tag="SWI_meaning=true">correct</item>
+      <item tag="SWI_meaning=false">no</item>
+      <item tag="SWI_meaning=false">wrong</item>
+    </one-of>
+ </rule>
+</grammar>

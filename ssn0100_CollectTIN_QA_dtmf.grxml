@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+  <!-- ************************************************************
+        Copyright C 1995-2023 by Nuance Communications. All rights reserved.
+        Nuance Communications provides this document without representation or
+        warranty of any kind. Nuance Communications reserves the right to revise this
+        document and to change the information contained in this document without
+        further notice.
+
+        dtmf ssn grammar        
+   -->
+
+<grammar version="1.0" xmlns="http://www.w3.org/2001/06/grammar"
+         tag-format="swi-semantics/1.0"
+         xml:lang="en-us" mode="dtmf" root="entity_CollectTIN">
+
+   <rule id="entity_CollectTIN" scope="public">
+      <ruleref uri="#SSN"/>
+      <tag>
+	entity_CollectTIN = SSN.SWI_literal.replace(/[ ]+/g, '');
+        SWI_meaning = SSN.SWI_literal.replace(/[ ]+/g, '');
+        /* Based on some SSA documentation, updated June 2011 (http://www.socialsecurity.gov/employer/randomization.html) */
+        /* group cannot be 00 */
+        /* serial cannot be 0000 */
+        var  area = parseInt (SWI_meaning.substr(0,3), 10);
+        var group = SWI_meaning.substr (3,2);
+        var serial = SWI_meaning.substr (5,4);
+        if (group == '00') { SWI_disallow=1; }
+        if (serial == '0000') { SWI_disallow=1; }
+        if (area == 0 || area == 666 || area &gt;= 900) { SWI_disallow=1; }
+	grammar_version='20220318';
+      </tag>
+   </rule>
+      
+   <rule id="SSN">
+      <ruleref uri="#DIGIT"/>
+      <ruleref uri="#DIGIT"/>
+      <ruleref uri="#DIGIT"/>
+      <ruleref uri="#DIGIT"/>
+      <ruleref uri="#DIGIT"/>
+      <ruleref uri="#DIGIT"/>
+      <ruleref uri="#DIGIT"/>
+      <ruleref uri="#DIGIT"/>
+      <ruleref uri="#DIGIT"/>
+   </rule>
+      
+   <rule id="DIGIT">
+      <one-of>
+         <item> 0 </item>
+         <item> 1 </item>
+         <item> 2 </item>
+         <item> 3 </item>
+         <item> 4 </item>
+         <item> 5 </item>
+         <item> 6 </item>
+         <item> 7 </item>
+         <item> 8 </item>
+         <item> 9 </item>
+      </one-of>
+   </rule>
+</grammar>
